@@ -1,4 +1,4 @@
-name: Github Simple Action
+name: test
 on:
  pull_request:
  push:
@@ -8,7 +8,7 @@ on:
      
 jobs:
    test:
-    name: Running Unit Test
+    name: Running ubuntu Test
     runs-on: ubuntu-latest
     
     steps:
