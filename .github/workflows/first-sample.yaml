@@ -1,4 +1,4 @@
-name: Github Action Simple 
+name: Github Simple Action
 on:
  pull_request:
  push:
