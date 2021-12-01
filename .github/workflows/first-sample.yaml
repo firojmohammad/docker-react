@@ -1,4 +1,4 @@
-name: fithub action simple 
+name: Github Action Simple 
 on:
  pull_request:
  push:
