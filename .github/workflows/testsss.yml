@@ -25,7 +25,9 @@ jobs:
        password: ${{ secrets.DOCKER_PASSWORD }}
        
        
-   deploy:
-      steps:
-       - docker-comose up -d
+  deploy:
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploystage
+      run: docker-comose up -d
        
