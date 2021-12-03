@@ -19,10 +19,9 @@ jobs:
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
-       image: firoj0786/demo-app/alpine
-       tag-sha: true
-       tag-edge: false
-       tag-latest: true
+       image: firoj0786/demo-app
+       tags: v1, latest
+       dockerfile: Dockerfile.ci
        registry: docker.io
        username: ${{ secrets.DOCKER_USERNAME }}
        password: ${{ secrets.DOCKER_PASSWORD }}
