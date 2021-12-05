@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
     branches: [ develop ]
 
@@ -34,11 +34,4 @@ jobs:
 
        
        
-       
-  deploy:
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
-    - name: Deploy-stage
-      run: docker-compose up -d
-       
+
