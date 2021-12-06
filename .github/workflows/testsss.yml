@@ -25,8 +25,10 @@ jobs:
      
       run: |
              docker login -u $USERNAME -p $PASSWORD
-             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile my_name: "my-image" my_tag: "latest" .  
+             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
              docker push firoj0786/mm:${{ github.sha }}
+             image_name: "firoj0786"
+             image_tag: "latest"
       
              
   deploy:
@@ -41,8 +43,10 @@ jobs:
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
       run: |
               docker login -u $USERNAME -p $PASSWORD
-              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile my_name: "my-image" my_tag: "latest" .   
+              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
               docker push firoj0786/mm:${{ github.sha }}
+              image_name: "firoj0786"
+              image_tag: "latest"
               docker-compose up -d
               
               
