@@ -12,7 +12,7 @@ jobs:
 
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
+    
     - name: build_push_tag of develop
       if: contains('refs/heads/develop')
       env:
@@ -27,7 +27,7 @@ jobs:
 
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
+    
     - name: deploy app
       if: contains('refs/heads/main')
       env:
