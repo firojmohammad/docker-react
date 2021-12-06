@@ -22,7 +22,7 @@ jobs:
              docker login -u $USERNAME -p $PASSWORD
              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .     
              docker push firoj0786/mm:${{ github.sha }}
-             NAME   := acmecorp/foo
+             NAME   := firoj0786/app
              TAG    := $$(git log -1 --pretty=%!H(MISSING))
              IMG    := ${NAME}:${TAG}
              LATEST := ${NAME}:latest
@@ -40,8 +40,4 @@ jobs:
               docker login -u $USERNAME -p $PASSWORD
               docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
               docker push firoj0786/mm:${{ github.sha }}
-              NAME   := acmecorp/foo
-              TAG    := $$(git log -1 --pretty=%!H(MISSING))
-              IMG    := ${NAME}:${TAG}
-              LATEST := ${NAME}:latest
               docker-compose up -d
