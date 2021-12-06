@@ -22,6 +22,10 @@ jobs:
              docker login -u $USERNAME -p $PASSWORD
              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .     
              docker push firoj0786/mm:${{ github.sha }}
+             NAME   := acmecorp/foo
+             TAG    := $$(git log -1 --pretty=%!H(MISSING))
+             IMG    := ${NAME}:${TAG}
+             LATEST := ${NAME}:latest
   deploy:
 
     runs-on: self-hosted
