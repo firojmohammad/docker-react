@@ -39,13 +39,3 @@ jobs:
                  docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
                 docker push firoj0786/mm:MM-${GITHUB_REF:10
                 docker-compose up -d
-                
-                
-   
-       
-       
-       
-       
- 
-
-\
