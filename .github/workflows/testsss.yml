@@ -41,6 +41,7 @@ jobs:
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
       run: |
+              echo ${{steps.tag.outputs.tag}}
               docker login -u $USERNAME -p $PASSWORD
               docker build -t firoj0786/mm:${{ github.tag }} -f Dockerfile .   
               docker push firoj0786/mm:${{ github.tag  }}
