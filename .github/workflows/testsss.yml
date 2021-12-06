@@ -24,8 +24,8 @@ jobs:
              docker push firoj0786/mm:${{ github.sha }}
              NAME   := firoj0786/app
              TAG    := $$(git log -1 --pretty=%!H(MISSING))
-             IMG    := ${NAME}:${TAG}
-             LATEST := ${NAME}:latest
+             IMG    := ${firoj0786}:${app}
+             LATEST := ${firoj0786}:latest
   deploy:
 
     runs-on: self-hosted
