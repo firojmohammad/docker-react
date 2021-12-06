@@ -13,54 +13,38 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:hello
-      if: contains('refs/heads/main refs/heads/rc refs/heads/uat refs/heads/test refs/heads/develop',github.ref)
-      
-    - name: Build and Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v4
-      with:
-       image: firoj0786/demo-app
-       context: .
-       push: true
-       tags:
-          user/image:latest
-       registry: docker.io
-       username: ${{ secrets.DOCKER_USERNAME }}
-       password: ${{ secrets.DOCKER_PASSWORD }}
-       env: 
-        ACCESS_TOKEN: ${{ secrets.USERNAME }}
-        USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-               docker login -u $USERNAME -p $PASSWORD
-               DOCKER_BUILDKIT=1 docker build -f Dockerfile -t firoj0786/mm:MM-${{ github.sha }} --build-arg ACCESS_TOKEN=$ACCESS_TOKEN .
-               docker push firoj0786/mm:MM-${{ github.sha }}
-    - name: build_push_tag
-      if: contains(github.ref, 'tags')
+    - name: build_push_tag of develop
+      if: contains('refs/heads/develop')
       env:
-       ACCESS_TOKEN: ${{ secrets.USERNAME }}
+       
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
        run: |
                 docker login -u $USERNAME -p $PASSWORD
-                DOCKER_BUILDKIT=1 docker build -f Dockerfile -t firoj0786/mm:MM-${GITHUB_REF:10} --build-arg ACCESS_TOKEN=$ACCESS_TOKEN .     
+                 docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
                 docker push firoj0786/mm:MM-${GITHUB_REF:10
+  deploy:
+
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: deploy app
+      if: contains('refs/heads/main')
+      env:
+       
+       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+       run: |
+                docker login -u $USERNAME -p $PASSWORD
+                 docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
+                docker push firoj0786/mm:MM-${GITHUB_REF:10
+                
+                
+   
        
        
        
        
  
 
-Deployment
-
-on:
-  push:
-    branches:
-      - main 
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
-    - name: Deploy-stage
-      run: docker-compose up -d
-       
+\
