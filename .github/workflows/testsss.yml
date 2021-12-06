@@ -26,8 +26,8 @@ jobs:
       run: |
             
              docker login -u $USERNAME -p $PASSWORD
-             docker build -t firoj0786/mm:${{ github.firoj0786/demo-app }} -f Dockerfile .  
-             docker push firoj0786/mm:${{ github.firoj0786/demo-app }}
+             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
+             docker push firoj0786/mm:${{ github.sha }}
          
              
   deploy:
@@ -43,8 +43,8 @@ jobs:
       run: |
       
               docker login -u $USERNAME -p $PASSWORD
-              docker build -t firoj0786/mm:${{ github.firoj0786/demo-app }} -f Dockerfile .   
-              docker push firoj0786/mm:${{ github.firoj0786/demo-app  }}
+              docker build -t firoj0786/mm:${{ github.sha}} -f Dockerfile .   
+              docker push firoj0786/mm:${{ github.sha  }}
               docker-compose up -d
               
               
