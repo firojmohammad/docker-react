@@ -43,10 +43,9 @@ jobs:
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
       run: |
               docker login -u $USERNAME -p $PASSWORD
-              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
-              docker push firoj0786/mm:${{ github.sha }}
-              image_name: "firoj0786"
-              image_tag: "latest"
+              docker build -t firoj0786/mm:${{ github.tag }} -f Dockerfile .   
+              docker push firoj0786/mm:${{ github.tag }}
+        
               docker-compose up -d
               
               
