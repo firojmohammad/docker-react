@@ -20,8 +20,8 @@ jobs:
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
       run: |
              docker login -u $USERNAME -p $PASSWORD
-             docker build -t firoj0786/mm:${GITHUB_REF:10} -f Dockerfile .     
-             docker push firoj0786/mm:${GITHUB_REF:10}
+             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .     
+             docker push firoj0786/mm:${{ github.sha }}
   deploy:
 
     runs-on: self-hosted
@@ -34,6 +34,6 @@ jobs:
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
       run: |
               docker login -u $USERNAME -p $PASSWORD
-              docker build -t firoj0786/mm:${GITHUB_REF:10} -f Dockerfile .   
-              docker push firoj0786/mm:${GITHUB_REF:10}
+              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
+              docker push firoj0786/mm:${{ github.sha }}
               docker-compose up -d
