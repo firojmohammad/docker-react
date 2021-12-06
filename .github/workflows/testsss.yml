@@ -15,14 +15,13 @@ jobs:
     
     - name: build_push_tag of develop
       if: contains('refs/heads/develop')
-      env:
-       
+      env:      
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
-       run: |
-                docker login -u $USERNAME -p $PASSWORD
-                 docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
-                docker push firoj0786/mm:MM-${GITHUB_REF:10
+      run: |
+             docker login -u $USERNAME -p $PASSWORD
+             docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
+             docker push firoj0786/mm:MM-${GITHUB_REF:10
   deploy:
 
     runs-on: self-hosted
@@ -31,11 +30,10 @@ jobs:
     - name: deploy app
       if: contains('refs/heads/main')
       env:
-       
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
-       run: |
-                docker login -u $USERNAME -p $PASSWORD
-                 docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
-                docker push firoj0786/mm:MM-${GITHUB_REF:10
-                docker-compose up -d
+      run: |
+              docker login -u $USERNAME -p $PASSWORD
+              docker build -f Dockerfile -t firoj0786/mm:${GITHUB_REF:10}  .     
+              docker push firoj0786/mm:MM-${GITHUB_REF:10
+              docker-compose up -d
