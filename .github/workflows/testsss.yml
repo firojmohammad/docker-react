@@ -48,14 +48,17 @@ jobs:
               docker-compose up -d
               
               
-             
+  deploy2:
+ 
+     runs-on: self-hosted
+     steps:     
     
-    - name: deploy app1
-      if: contains('refs/heads/main',github.ref)
-      env:
-       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
-      run: |
+     - name: deploy app1
+       if: contains('refs/heads/main',github.ref)
+       env:
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+       run: |
       
               docker login -u $USERNAME -p $PASSWORD
               docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
