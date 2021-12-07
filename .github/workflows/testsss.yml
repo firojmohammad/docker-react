@@ -36,7 +36,7 @@ jobs:
     steps:
     
     - name: deploy app
-      if: contains('refs/heads/develop',github.ref)
+      if: contains('refs/heads/main',github.ref)
       env:
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
@@ -51,7 +51,7 @@ jobs:
              
     
     - name: deploy app1
-      if: contains('refs/heads/main',github.ref)
+      if: contains('refs/heads/develop',github.ref)
       env:
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
