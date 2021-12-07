@@ -2,4 +2,5 @@ version: '3.3'
 services:
     reactapp:
        build: .
-       
+       ports:
+        - '8081:8086'
