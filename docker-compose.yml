@@ -3,4 +3,4 @@ services:
     reactapp:
        build: .
        ports:
-        - '8081:8086'
+        - '8081:80'
