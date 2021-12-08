@@ -1,5 +1,6 @@
 name: Docker Image 
 
+
 on:
   push:
     branches: [ main,develop ]
@@ -9,50 +10,56 @@ on:
 jobs:
 
   build:
+      
 
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:hello
+    - name: build_push_tag of develop
      
-    - name: Build and Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v4
-      with:
-       image: firoj0786/demo-app
-       context: .
-       push: true
-       tags:
-          user/image:latest
-       registry: docker.io
-       username: ${{ secrets.DOCKER_USERNAME }}
-       password: ${{ secrets.DOCKER_PASSWORD }}
-       
-       
-       
-       
+      if: contains('refs/heads/develop',github.ref)
+      env:      
+       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+      
+     
+      run: |
+            
+             docker login -u $USERNAME -p $PASSWORD
+             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
+             docker push firoj0786/mm:${{ github.sha }}
+         
+             
+  deploy:
  
-
-Deployment
-
-on:
-  push:
-    branches:
-      - develop
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
-    - name: Deploy-stage
-      run: docker-compose -f docker-compose.yml up -d
-     
-Deployment
-
-on:
-  push:
-    branches:
-      - main 
+    - name: deploy app
+      if: contains('refs/heads/develop',github.ref)
+      env:
+       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+      run: |
+      
+              docker login -u $USERNAME -p $PASSWORD
+              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
+              docker push firoj0786/mm:${{ github.sha }}
+              docker-compose -f docker-compose.yml  up -d 
+              
+  deploy1:
+ 
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
-    - name: Deploy-stage
-      run: docker-compose -f docker-compose2.yml up -d     
+    - name: deploy app1
+      if: contains('refs/heads/main',github.ref)
+      env:
+       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+      run: |
+      
+              docker login -u $USERNAME -p $PASSWORD
+              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
+              docker push firoj0786/mm:${{ github.sha }}
+              docker-compose -f docker-compose2.yml up -d 
