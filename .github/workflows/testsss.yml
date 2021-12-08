@@ -45,7 +45,7 @@ jobs:
               docker login -u $USERNAME -p $PASSWORD
               docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
               docker push firoj0786/mm:${{ github.sha }}
-              docker-compose up -d 
+              docker-compose -f docker-compoe.yml up -d 
               
               
   deploy2:
@@ -63,5 +63,5 @@ jobs:
               docker login -u $USERNAME -p $PASSWORD
               docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
               docker push firoj0786/mm:${{ github.sha }}
-              docker-compose up -d           
+              docker-compose -f docker-compose2.yml up -d           
               
