@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: build_push_tag of develop
      
-      if: contains('refs/heads/develop',github.ref)
+      if: contains('refs/heads/main/develop',github.ref)
       env:      
        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
        USERNAME: ${{ secrets.DOCKER_USERNAME }}  
@@ -29,20 +29,7 @@ jobs:
              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
              docker push firoj0786/mm:${{ github.sha }}
 
-    - uses: actions/checkout@v2
-    - name: build_push_tag of main
-     
-      if: contains('refs/heads/main',github.ref)
-      env:      
-       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
-      
-     
-      run: |
-            
-             docker login -u $USERNAME -p $PASSWORD
-             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
-             docker push firoj0786/mm:${{ github.sha }}    
+    
              
   deploy:
  
