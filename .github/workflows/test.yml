@@ -28,6 +28,7 @@ jobs:
              docker login -u $USERNAME -p $PASSWORD
              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
              docker push firoj0786/mm:${{ github.sha }}
+
          
              
   deploy:
@@ -46,11 +47,22 @@ jobs:
               docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .   
               docker push firoj0786/mm:${{ github.sha }}
               docker-compose -f docker-compose.yml  up -d 
-              
-  deploy1:
- 
-    runs-on: self-hosted
-    steps:
+
+    - uses: actions/checkout@v2
+    - name: build_push_tag of main
+     
+      if: contains('refs/heads/main',github.ref)
+      env:      
+       PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+       USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+      
+     
+      run: |
+            
+             docker login -u $USERNAME -p $PASSWORD
+             docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
+             docker push firoj0786/mm:${{ github.sha }}         
+  
     - uses: actions/checkout@v2
     - name: deploy app1
       if: contains('refs/heads/main',github.ref)
