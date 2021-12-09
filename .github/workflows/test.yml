@@ -29,7 +29,7 @@ jobs:
              docker build -t firoj0786/mm:${{ github.sha }} -f Dockerfile .  
              docker push firoj0786/mm:${{ github.sha }}
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: build_push_tag of main
      
       if: contains('refs/heads/main',github.ref)
@@ -63,7 +63,7 @@ jobs:
 
             
   
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: deploy app1
       if: contains('refs/heads/main',github.ref)
       env:
